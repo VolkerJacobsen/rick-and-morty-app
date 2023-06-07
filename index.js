@@ -15,18 +15,14 @@ let maxPage = 1;
 let page = 1;
 const searchQuery = "";
 
-async function fetchCharacters(page) {
+async function fetchCharacters() {
   try {
     const response = await fetch(
       `https://rickandmortyapi.com/api/character?page=${page}`
     );
     if (response.ok) {
       const data = await response.json();
-      // Just for debugging
-      console.log(data);
-      if (!page) {
-        page = 1;
-      }
+
       maxPage = data.info.pages;
       pagination.textContent = page + " / " + maxPage;
       const persons = data.results;
@@ -45,18 +41,15 @@ async function fetchCharacters(page) {
 
 prevButton.addEventListener("click", () => {
   if (page > 1) {
-    fetchCharacters(page - 1);
     page--;
-    pagination.textContent = page + " / " + maxPage;
+    fetchCharacters();
   }
 });
 
 nextButton.addEventListener("click", () => {
   if (page < maxPage) {
-    fetchCharacters(page + 1);
     page++;
-    pagination.textContent = page + " / " + maxPage;
-    console.log(pagination);
+    fetchCharacters();
   }
 });
 
