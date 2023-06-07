@@ -1,19 +1,27 @@
 import { createCharacterCard } from "./components/card/card.js";
+import { createButton } from "./components/nav-button/nav-button.js";
+import { createPagination } from "./components/nav-pagination/nav-pagination.js";
+import { createSearchbar } from "./components/search-bar/search-bar.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
-const searchBar = document.querySelector('[data-js="search-bar"]');
+const searchBar = createSearchbar();
 const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
-const pagination = document.querySelector('[data-js="pagination"]');
+const prevButton = createButton("prev");
+const nextButton = createButton("next");
+const pagination = createPagination();
 
 // States
 let maxPage = 1;
 let page = 1;
 let searchQuery = "";
+
+searchBarContainer.append(searchBar);
+navigation.append(prevButton);
+navigation.append(pagination);
+navigation.append(nextButton);
 
 async function fetchCharacters() {
   try {
